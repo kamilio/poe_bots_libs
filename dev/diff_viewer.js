@@ -12,11 +12,7 @@ const DiffViewer = {
             drawFileList: false,
             matching: 'lines',
             outputFormat: 'side-by-side',
-            highlight: true,
-            renderNothingWhenEmpty: false,
-            matchingMaxComparisons: 2500,
-            maxLineSizeInBlockForComparison: 200,
-            diffStyle: 'word',
+            highlight: true
         };
 
         const diff2htmlUi = new Diff2HtmlUI(targetElement, this.diff, configuration);
