@@ -16,7 +16,7 @@ const DiffViewer = {
             renderNothingWhenEmpty: false,
             matchingMaxComparisons: 2500,
             maxLineSizeInBlockForComparison: 200,
-            diffStyle: 'char',
+            diffStyle: 'word',
         };
 
         const diff2htmlUi = new Diff2HtmlUI(targetElement, this.diff, configuration);
