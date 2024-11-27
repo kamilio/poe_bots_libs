@@ -26,6 +26,7 @@ const DiffViewer = {
                 copyBtn.className = 'copy-button';
                 copyBtn.textContent = 'Copy Source';
                 copyBtn.onclick = () => this.copyFileContent(index);
+                header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
         }, 100);
@@ -40,19 +41,17 @@ const DiffViewer = {
             const fileContent = this.files[fileName];
 
             if (fileContent) {
-                this.copyToClipboard(fileContent, codeContainers[fileIndex].querySelector('.copy-button'));
+                this.copyToClipboard(fileContent, codeContainers[fileIndex].querySelector('.copy-button'), 'Copy Source', 'Code copied!');
             }
         }
     },
 
     copyShareUrl: function () {
         const shareButton = document.querySelector('.copy-button__share');
-        this.copyToClipboard(this.shareUrl, shareButton);
+        this.copyToClipboard(this.shareUrl, shareButton, 'Share', 'Link copied!');
     },
 
-    copyToClipboard: async function (text, button) {
-        const originalText = button.textContent;
-
+    copyToClipboard: async function (text, button, originalText, copiedText) {
         try {
             // Try the modern Clipboard API first
             if (navigator.clipboard && window.isSecureContext) {
@@ -75,7 +74,7 @@ const DiffViewer = {
                 }
             }
 
-            button.textContent = 'Copied!';
+            button.textContent = copiedText;
             setTimeout(() => {
                 button.textContent = originalText;
             }, 2000);
