@@ -24,23 +24,25 @@ const DiffViewer = {
             fileHeaders.forEach((header, index) => {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
-                copyBtn.textContent = 'Copy';
+                copyBtn.textContent = 'Copy Source';
                 copyBtn.onclick = () => this.copyFileContent(index);
+                header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
         }, 100);
     },
 
     copyFileContent: function (fileIndex) {
-        const codeContainers = document.querySelectorAll('.d2h-file-name-wrapper');
-        const fileNameElement = codeContainers[fileIndex]?.querySelector('.d2h-file-name');
+        const fileHeaders = document.querySelectorAll('.d2h-file-header');
+        const copyButton = fileHeaders[fileIndex]?.querySelector('.copy-button');
+        const fileNameElement = document.querySelectorAll('.d2h-file-name-wrapper')[fileIndex]?.querySelector('.d2h-file-name');
 
-        if (fileNameElement) {
+        if (fileNameElement && copyButton) {
             const fileName = fileNameElement.textContent.trim().split('\n')[0];
             const fileContent = this.files[fileName];
 
             if (fileContent) {
-                this.copyToClipboard(fileContent, codeContainers[fileIndex].querySelector('.copy-button'), 'Copy', 'Code copied!');
+                this.copyToClipboard(fileContent, copyButton, 'Copy Source', 'Code copied!');
             }
         }
     },
