@@ -3,8 +3,6 @@ const DiffViewer = {
         this.diff = config.diff;
         this.shareUrl = config.shareUrl;
         this.files = config.files;
-        this.clipboard = new ClipboardJS('.copy-button');
-        this.initializeShareButton();
         this.initializeClipboard();
         this.showDiff();
     },
@@ -33,7 +31,7 @@ const DiffViewer = {
     addCopyButtons: function () {
         setTimeout(() => {
             const fileHeaders = document.querySelectorAll('.d2h-file-header');
-            fileHeaders.forEach((header, index) => {
+            fileHeaders.forEach(header => {
                 const fileName = header.querySelector('.d2h-file-name').textContent.trim();
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
@@ -42,7 +40,6 @@ const DiffViewer = {
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
-            this.initializeClipboard();
         }, 100);
     },
 
@@ -57,6 +54,12 @@ const DiffViewer = {
             setTimeout(() => {
                 button.textContent = 'Copy Source';
             }, 2000);
+        });
+
+        this.clipboard.on('error', (e) => {
+            const button = e.trigger;
+            const fileName = button.getAttribute('data-filename');
+            button.textContent = `Copy failed: ${this.files[fileName] ? 'Unknown error' : 'File not found'}`;
         });
     },
 
@@ -75,13 +78,6 @@ const DiffViewer = {
 
         shareClipboard.on('error', (e) => {
             console.error('Share URL copy failed:', e);
-        });
-
-        this.clipboard.on('error', (e) => {
-            console.error('Copy failed:', e);
-            const button = e.trigger;
-            const fileName = button.getAttribute('data-filename');
-            button.textContent = `Copy failed: ${this.files[fileName] ? 'Unknown error' : 'File not found'}`;
             setTimeout(() => {
                 button.textContent = 'Copy Source';
             }, 2000);
