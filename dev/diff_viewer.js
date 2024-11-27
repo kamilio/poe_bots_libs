@@ -24,7 +24,7 @@ const DiffViewer = {
             fileHeaders.forEach((header, index) => {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
-                copyBtn.textContent = 'Copy Source';
+                copyBtn.textContent = 'Copy';
                 copyBtn.onclick = () => this.copyFileContent(index);
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
@@ -42,7 +42,7 @@ const DiffViewer = {
             const fileContent = this.files[fileName];
 
             if (fileContent) {
-                this.copyToClipboard(fileContent, copyButton, 'Copy Source', 'Code copied!');
+                this.copyToClipboard(fileContent, copyButton, 'Copy', 'Code copied!');
             }
         }
     },
