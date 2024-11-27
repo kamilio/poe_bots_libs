@@ -42,17 +42,17 @@ body {
     background: white;
     border-radius: 0 0 6px 6px;
 }
-.file-header {
+.d2h-file-header {
     position: relative;
     padding-right: 140px !important;
 }
-.file-header .copy-button {
+.d2h-file-header .copy-button {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
 }
-.file-header .d2h-file-collapse {
+.d2h-file-header .d2h-file-collapse {
     display: none !important;
 }
