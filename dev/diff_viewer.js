@@ -33,17 +33,23 @@ const DiffViewer = {
         setTimeout(() => {
             const fileHeaders = document.querySelectorAll('.d2h-file-header');
             fileHeaders.forEach((header, index) => {
+                const fileName = header.querySelector('.d2h-file-name').textContent.trim();
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
-                copyBtn.setAttribute('data-clipboard-target', `#file-content-${index}`);
+                copyBtn.setAttribute('data-filename', fileName);
                 copyBtn.textContent = 'Copy Source';
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
+            this.initializeClipboard();
         }, 100);
     },
 
     initializeClipboard: function () {
+        this.clipboard = new ClipboardJS('.copy-button', {
+            text: (trigger) => this.files[trigger.getAttribute('data-filename')] || ''
+        });
+
         this.clipboard.on('success', (e) => {
             const button = e.trigger;
             button.textContent = 'Copied!';
@@ -55,7 +61,8 @@ const DiffViewer = {
         this.clipboard.on('error', (e) => {
             console.error('Copy failed:', e);
             const button = e.trigger;
-            button.textContent = 'Copy failed';
+            const fileName = button.getAttribute('data-filename');
+            button.textContent = `Copy failed: ${this.files[fileName] ? 'Unknown error' : 'File not found'}`;
             setTimeout(() => {
                 button.textContent = 'Copy Source';
             }, 2000);
