@@ -35,8 +35,8 @@ const DiffViewer = {
     },
 
     copyFileContent: function (fileIndex) {
-        const codeContainers = document.querySelectorAll('.d2h-file-wrapper');
-        const fileHeader = codeContainers[fileIndex]?.querySelector('.d2h-file-header');
+        const containers = document.querySelectorAll('.d2h-file-name-wrapper');
+        const filename = codeContainers[fileIndex]?.querySelector('.d2h-file-name');
         if (fileHeader) {
             const fileName = fileHeader.textContent.trim().split('\n')[0];
             const fileContent = this.files[fileName];
