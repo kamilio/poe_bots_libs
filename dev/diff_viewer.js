@@ -1,19 +1,14 @@
+
 const DiffViewer = {
     init: function (config) {
         this.diff = config.diff;
         this.shareUrl = config.shareUrl;
         this.files = config.files;
-        this.initializeClipboard();
         this.showDiff();
     },
 
     showDiff: function () {
         const targetElement = document.getElementById('diffView');
-        if (!targetElement) {
-            console.error('Diff view element not found');
-            return;
-        }
-
         const configuration = {
             drawFileList: false,
             matching: 'lines',
@@ -25,61 +20,42 @@ const DiffViewer = {
         diff2htmlUi.draw();
         diff2htmlUi.highlightCode();
 
-        this.addCopyButtons();
-    },
-
-    addCopyButtons: function () {
+        // Add copy buttons to each file header
         setTimeout(() => {
             const fileHeaders = document.querySelectorAll('.d2h-file-header');
-            fileHeaders.forEach(header => {
-                const fileName = header.querySelector('.d2h-file-name').textContent.trim();
+            fileHeaders.forEach((header, index) => {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
-                copyBtn.setAttribute('data-filename', fileName);
                 copyBtn.textContent = 'Copy Source';
+                copyBtn.onclick = () => this.copyFileContent(index);
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
         }, 100);
     },
 
-    initializeClipboard: function () {
-        this.clipboard = new ClipboardJS('.copy-button', {
-            text: (trigger) => this.files[trigger.getAttribute('data-filename')] || ''
-        });
-
-        this.clipboard.on('success', (e) => {
-            const button = e.trigger;
-            button.textContent = 'Copied!';
-            setTimeout(() => {
-                button.textContent = 'Copy Source';
-            }, 2000);
-        });
-
-        this.clipboard.on('error', (e) => {
-            const button = e.trigger;
-            const fileName = button.getAttribute('data-filename');
-            button.textContent = `Copy failed: ${this.files[fileName] ? 'Unknown error' : 'File not found'}`;
-        });
+    copyFileContent: function (fileIndex) {
+        const codeContainers = document.querySelectorAll('.d2h-file-name-wrapper');
+        const filename = codeContainers[fileIndex]?.querySelector('.d2h-file-name');
+        if (fileHeader) {
+            const fileName = fileHeader.textContent.trim().split('\n')[0];
+            const fileContent = this.files[fileName];
+            navigator.clipboard.writeText(fileContent).then(() => {
+                const copyButton = codeContainers[fileIndex].querySelector('.copy-button');
+                copyButton.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                }, 2000);
+            });
+        }
     },
 
-    initializeShareButton: function () {
-        const shareClipboard = new ClipboardJS('.copy-share-button', {
-            text: () => this.shareUrl
-        });
-
-        shareClipboard.on('success', (e) => {
-            const button = e.trigger;
-            button.textContent = 'Link copied!';
+    copyShareUrl: function () {
+        navigator.clipboard.writeText(this.shareUrl).then(() => {
+            const shareButton = document.querySelector('.copy-button__share');
+            shareButton.textContent = 'Link copied!';
             setTimeout(() => {
-                button.textContent = 'Share';
-            }, 2000);
-        });
-
-        shareClipboard.on('error', (e) => {
-            console.error('Share URL copy failed:', e);
-            setTimeout(() => {
-                button.textContent = 'Copy Source';
+                shareButton.textContent = 'Share';
             }, 2000);
         });
     }
