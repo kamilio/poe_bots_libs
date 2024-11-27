@@ -16,22 +16,15 @@ const DiffViewer = {
         };
 
         const diff2htmlUi = new Diff2HtmlUI(targetElement, this.diff, configuration);
+
+        // Hook into the diff2html lifecycle
+        targetElement.addEventListener('diff2html:rendered', () => {
+            const fileHeaders = document.querySelectorAll('.d2h-file-header');
+            this.addCopyButtons(fileHeaders);
+        });
+
         diff2htmlUi.draw();
         diff2htmlUi.highlightCode();
-
-        // Use MutationObserver to detect when diff is rendered
-        const observer = new MutationObserver((mutations, obs) => {
-            const fileHeaders = document.querySelectorAll('.d2h-file-header');
-            if (fileHeaders.length > 0) {
-                this.addCopyButtons(fileHeaders);
-                obs.disconnect();
-            }
-        });
-
-        observer.observe(targetElement, {
-            childList: true,
-            subtree: true
-        });
     },
 
     addCopyButtons: function (fileHeaders) {
@@ -40,6 +33,7 @@ const DiffViewer = {
             copyBtn.className = 'copy-button';
             copyBtn.textContent = 'Copy Source';
             copyBtn.onclick = () => this.copyFileContent(index);
+            header.classList.add('file-header');
             header.appendChild(copyBtn);
         });
     },
