@@ -16,26 +16,20 @@ const DiffViewer = {
         };
 
         const diff2htmlUi = new Diff2HtmlUI(targetElement, this.diff, configuration);
-
-        // Hook into the diff2html lifecycle
-        targetElement.addEventListener('diff2html:rendered', () => {
-            const fileHeaders = document.querySelectorAll('.d2h-file-header');
-            this.addCopyButtons(fileHeaders);
-        });
-
         diff2htmlUi.draw();
         diff2htmlUi.highlightCode();
-    },
 
-    addCopyButtons: function (fileHeaders) {
-        fileHeaders.forEach((header, index) => {
-            const copyBtn = document.createElement('button');
-            copyBtn.className = 'copy-button';
-            copyBtn.textContent = 'Copy Source';
-            copyBtn.onclick = () => this.copyFileContent(index);
-            header.classList.add('file-header');
-            header.appendChild(copyBtn);
-        });
+        setTimeout(() => {
+            const fileHeaders = document.querySelectorAll('.d2h-file-header');
+            fileHeaders.forEach((header, index) => {
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-button';
+                copyBtn.textContent = 'Copy Source';
+                copyBtn.onclick = () => this.copyFileContent(index);
+                header.classList.add('file-header');
+                header.appendChild(copyBtn);
+            });
+        }, 100);
     },
 
     copyFileContent: function (fileIndex) {
