@@ -40,7 +40,7 @@ const DiffViewer = {
             const fileContent = this.files[fileName];
 
             if (fileContent) {
-                this.copyToClipboard(fileContent, codeContainers[fileIndex].querySelector('.copy-button'), 'Copy Source', 'Code copied!');
+                this.copyToClipboard(fileContent, codeContainers[fileIndex].querySelector('.copy-button'), 'Copy', 'Code copied!');
             }
         }
     },
