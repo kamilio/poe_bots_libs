@@ -4,8 +4,9 @@ const DiffViewer = {
         this.shareUrl = config.shareUrl;
         this.files = config.files;
         this.clipboard = new ClipboardJS('.copy-button');
-        this.showDiff();
+        this.initializeShareButton();
         this.initializeClipboard();
+        this.showDiff();
     },
 
     showDiff: function () {
@@ -56,6 +57,24 @@ const DiffViewer = {
             setTimeout(() => {
                 button.textContent = 'Copy Source';
             }, 2000);
+        });
+    },
+
+    initializeShareButton: function () {
+        const shareClipboard = new ClipboardJS('.copy-share-button', {
+            text: () => this.shareUrl
+        });
+
+        shareClipboard.on('success', (e) => {
+            const button = e.trigger;
+            button.textContent = 'Link copied!';
+            setTimeout(() => {
+                button.textContent = 'Share';
+            }, 2000);
+        });
+
+        shareClipboard.on('error', (e) => {
+            console.error('Share URL copy failed:', e);
         });
 
         this.clipboard.on('error', (e) => {
