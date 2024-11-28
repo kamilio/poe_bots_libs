@@ -1,1 +1,73 @@
-undefined
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Totally Rad 90s Website!</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            font-family: "Comic Sans MS", cursive;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 5px solid #ff0;
+            border-radius: 20px;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+        }
+        
+        h1 {
+            color: #ff0000;
+            text-shadow: 2px 2px #000;
+            animation: rainbow 3s infinite;
+        }
+        
+        .counter {
+            font-size: 12px;
+            color: #000;
+            margin-top: 20px;
+        }
+        
+        .construction {
+            width: 100px;
+            height: 100px;
+            animation: spin 4s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { color: red; }
+            33% { color: blue; }
+            66% { color: green; }
+            100% { color: red; }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <marquee behavior="alternate" scrollamount="10">
+            <h1>!!! WELCOME TO MY AWESOME WEBSITE !!!</h1>
+        </marquee>
+        
+        <div style="background-color: #000; color: #0f0; padding: 10px; font-family: monospace;">
+            <blink>Hello, World! </blink>
+        </div>
+        
+        <marquee direction="up" height="100px">
+            <h2>⭐ UNDER CONSTRUCTION ⭐</h2>
+        </marquee>
+        
+        <div class="counter">
+            You are visitor number: 1337
+        </div>
+    </div>
+</body>
+</html>
