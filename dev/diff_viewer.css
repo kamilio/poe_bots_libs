@@ -9,13 +9,12 @@ body {
     border-top-right-radius: 6px;
     background: #f6f8fa;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 .button-group {
     display: flex;
     gap: 8px;
-    margin-left: auto;
     align-items: center;
 }
 .copy-button {
@@ -25,6 +24,10 @@ body {
     padding: 4px 8px;
     cursor: pointer;
     color: #57606a;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: inherit;
 }
 .copy-button:hover {
     background: #f3f4f6;
