@@ -2,6 +2,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin: 0;
 }
+
 .code-header {
     padding: 8px 16px;
     border-bottom: 1px solid #d0d7de;
@@ -12,11 +13,13 @@ body {
     justify-content: flex-end;
     align-items: center;
 }
+
 .button-group {
     display: flex;
     gap: 8px;
     align-items: center;
 }
+
 .copy-button {
     background: transparent;
     border: 1px solid #d0d7de;
@@ -29,18 +32,22 @@ body {
     line-height: 20px;
     font-family: inherit;
 }
+
 .copy-button:hover {
     background: #f3f4f6;
 }
+
 #diffView {
     padding: 15px;
     background: white;
     border-radius: 0 0 6px 6px;
 }
+
 .d2h-file-header {
     position: relative;
     padding-right: 140px !important;
 }
+
 .d2h-file-header .copy-button {
     position: absolute;
     right: 10px;
@@ -48,9 +55,11 @@ body {
     transform: translateY(-50%);
     z-index: 1;
 }
+
 .d2h-file-header .d2h-file-collapse {
     display: none !important;
 }
+
 .diff-description {
     padding: 16px;
     margin: 0;
@@ -58,4 +67,30 @@ body {
     border-bottom: 1px solid #d0d7de;
     color: #24292f;
     line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+    .code-header {
+        border-bottom: 1px solid #30363d;
+        background: #161b22;
+    }
+
+    .copy-button {
+        border: 1px solid #30363d;
+        color: #8b949e;
+    }
+
+    .copy-button:hover {
+        background: #21262d;
+    }
+
+    #diffView {
+        background: #0d1117;
+    }
+
+    .diff-description {
+        background: #0d1117;
+        border-bottom: 1px solid #30363d;
+        color: #c9d1d9;
+    }
 }
