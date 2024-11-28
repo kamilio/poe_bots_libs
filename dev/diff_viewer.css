@@ -1,6 +1,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin: 0;
+    background: white;
 }
 
 .code-header {
@@ -70,6 +71,38 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+    body {
+        background: #0d1117;
+    }
+
+    ::-webkit-scrollbar {
+        width: 14px;
+        height: 14px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #0d1117;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #30363d;
+        border: 3px solid #0d1117;
+        border-radius: 7px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #3f444c;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: #0d1117;
+    }
+
+    * {
+        scrollbar-color: #30363d #0d1117;
+        scrollbar-width: auto;
+    }
+
     .code-header {
         border-bottom: 1px solid #30363d;
         background: #161b22;
