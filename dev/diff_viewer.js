@@ -3,18 +3,7 @@ const DiffViewer = {
         this.diff = config.diff;
         this.shareUrl = config.shareUrl;
         this.files = config.files;
-        this.description = config.description;
-        this.showDescription();
         this.showDiff();
-    },
-
-    showDescription: function () {
-        if (this.description) {
-            const descriptionElement = document.createElement('div');
-            descriptionElement.className = 'diff-description';
-            descriptionElement.textContent = this.description;
-            document.getElementById('diffView').insertAdjacentElement('beforebegin', descriptionElement);
-        }
     },
 
     showDiff: function () {
@@ -65,9 +54,11 @@ const DiffViewer = {
 
     copyToClipboard: async function (text, button, originalText, copiedText) {
         try {
+            // Try the modern Clipboard API first
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(text);
             } else {
+                // Fallback for Safari and other browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 textArea.style.position = 'fixed';
