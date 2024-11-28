@@ -12,7 +12,8 @@ const DiffViewer = {
             drawFileList: false,
             matching: 'lines',
             outputFormat: 'side-by-side',
-            highlight: true
+            highlight: true,
+            colorScheme: 'auto',
         };
 
         const diff2htmlUi = new Diff2HtmlUI(targetElement, this.diff, configuration);
