@@ -38,6 +38,14 @@ const DiffViewer = {
         const copyButton = fileHeaders[fileIndex]?.querySelector('.copy-button');
         const fileNameElement = document.querySelectorAll('.d2h-file-name-wrapper')[fileIndex]?.querySelector('.d2h-file-name');
 
+        if (!fileNameElement) {
+            raiseError('File name element not found');
+        }
+
+        if (!copyButton) {
+            raiseError('Copy button not found');
+        }
+
         if (fileNameElement && copyButton) {
             const fileName = fileNameElement.textContent.trim().split('\n')[0];
             const fileContent = this.files[fileName];
