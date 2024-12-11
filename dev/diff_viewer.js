@@ -62,6 +62,7 @@ const DiffViewer = {
     copyShareUrl: function () {
         const shareButton = document.querySelector('.copy-button__share');
         this.copyToClipboard(this.shareUrl, shareButton, 'Share', 'Link copied!');
+        return false;
     },
 
     copyToClipboard: async function (text, button, originalText, copiedText) {
