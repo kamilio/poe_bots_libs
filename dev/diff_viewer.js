@@ -57,6 +57,7 @@ const DiffViewer = {
                 this.copyToClipboard(fileContent, copyButton, 'Copy', 'Code copied!');
             }
         }
+        return False
     },
 
     copyShareUrl: function () {
