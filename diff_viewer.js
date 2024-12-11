@@ -26,7 +26,9 @@ const DiffViewer = {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
                 copyBtn.textContent = 'Copy';
-                copyBtn.onclick = () => this.copyFileContent(index);
+                copyBtn.onclick = () => {
+                    return this.copyFileContent(index);
+                }
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
@@ -54,11 +56,13 @@ const DiffViewer = {
                 this.copyToClipboard(fileContent, copyButton, 'Copy', 'Code copied!');
             }
         }
+        return False
     },
 
     copyShareUrl: function () {
         const shareButton = document.querySelector('.copy-button__share');
         this.copyToClipboard(this.shareUrl, shareButton, 'Share', 'Link copied!');
+        return false;
     },
 
     copyToClipboard: async function (text, button, originalText, copiedText) {
