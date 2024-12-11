@@ -26,7 +26,10 @@ const DiffViewer = {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
                 copyBtn.textContent = 'Copy';
-                copyBtn.onclick = () => this.copyFileContent(index);
+                copyBtn.onclick = (e) => {
+                    e.preventDefault();
+                    this.copyFileContent(index);
+                }
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
