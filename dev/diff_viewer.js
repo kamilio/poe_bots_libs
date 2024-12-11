@@ -99,5 +99,6 @@ const DiffViewer = {
                 button.textContent = originalText;
             }, 2000);
         }
+        return false;
     }
 };
