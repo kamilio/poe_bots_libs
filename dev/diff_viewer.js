@@ -60,7 +60,11 @@ const DiffViewer = {
         return False
     },
 
-    copyShareUrl: function () {
+    copyShareUrl: function (e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         const shareButton = document.querySelector('.copy-button__share');
         this.copyToClipboard(this.shareUrl, shareButton, 'Share', 'Link copied!');
         return false;
