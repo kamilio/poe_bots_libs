@@ -3,6 +3,7 @@ const DiffViewer = {
         this.diff = config.diff;
         this.shareUrl = config.shareUrl;
         this.files = config.files;
+        // Bind the methods to preserve 'this' context
         this.copyFileContent = this.copyFileContent.bind(this);
         this.copyShareUrl = this.copyShareUrl.bind(this);
         this.copyToClipboard = this.copyToClipboard.bind(this);
@@ -23,27 +24,17 @@ const DiffViewer = {
         diff2htmlUi.draw();
         diff2htmlUi.highlightCode();
 
+        // Increase timeout to ensure DOM is ready
         setTimeout(() => {
             const fileHeaders = document.querySelectorAll('.d2h-file-header');
             fileHeaders.forEach((header, index) => {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
                 copyBtn.textContent = 'Copy';
-                // Add type="button" to prevent form submission behavior
-                copyBtn.type = 'button';
                 copyBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    // Prevent scroll restoration
-                    if (window.scrollY) {
-                        window.scrollTo({
-                            top: window.scrollY,
-                            behavior: 'instant'
-                        });
-                    }
                     this.copyFileContent(index);
-                    // Return false to prevent default behavior
-                    return false;
                 });
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
@@ -98,9 +89,11 @@ const DiffViewer = {
         }
 
         try {
+            // Try the modern Clipboard API first
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(text);
             } else {
+                // Fallback for Safari and other browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 textArea.style.position = 'fixed';
