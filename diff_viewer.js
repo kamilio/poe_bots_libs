@@ -3,6 +3,10 @@ const DiffViewer = {
         this.diff = config.diff;
         this.shareUrl = config.shareUrl;
         this.files = config.files;
+        // Bind the methods to preserve 'this' context
+        this.copyFileContent = this.copyFileContent.bind(this);
+        this.copyShareUrl = this.copyShareUrl.bind(this);
+        this.copyToClipboard = this.copyToClipboard.bind(this);
         this.showDiff();
     },
 
@@ -20,20 +24,22 @@ const DiffViewer = {
         diff2htmlUi.draw();
         diff2htmlUi.highlightCode();
 
+        // Increase timeout to ensure DOM is ready
         setTimeout(() => {
             const fileHeaders = document.querySelectorAll('.d2h-file-header');
             fileHeaders.forEach((header, index) => {
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-button';
                 copyBtn.textContent = 'Copy';
-                copyBtn.onclick = (e) => {
+                copyBtn.addEventListener('click', (e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.copyFileContent(index);
-                }
+                });
                 header.classList.add('file-header');
                 header.appendChild(copyBtn);
             });
-        }, 100);
+        }, 500);
     },
 
     copyFileContent: function (fileIndex) {
@@ -42,31 +48,46 @@ const DiffViewer = {
         const fileNameElement = document.querySelectorAll('.d2h-file-name-wrapper')[fileIndex]?.querySelector('.d2h-file-name');
 
         if (!fileNameElement) {
-            raiseError('File name element not found');
+            console.error('File name element not found');
+            return false;
         }
 
         if (!copyButton) {
-            raiseError('Copy button not found');
+            console.error('Copy button not found');
+            return false;
         }
 
-        if (fileNameElement && copyButton) {
-            const fileName = fileNameElement.textContent.trim().split('\n')[0];
-            const fileContent = this.files[fileName];
+        const fileName = fileNameElement.textContent.trim().split('\n')[0];
+        const fileContent = this.files[fileName];
 
-            if (fileContent) {
-                this.copyToClipboard(fileContent, copyButton, 'Copy', 'Code copied!');
-            }
+        if (!fileContent) {
+            console.error('File content not found for:', fileName);
+            return false;
         }
-        return False
-    },
 
-    copyShareUrl: function () {
-        const shareButton = document.querySelector('.copy-button__share');
-        this.copyToClipboard(this.shareUrl, shareButton, 'Share', 'Link copied!');
+        this.copyToClipboard(fileContent, copyButton, 'Copy', 'Code copied!');
         return false;
     },
 
+    copyShareUrl: function (e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const shareButton = document.querySelector('.copy-button__share');
+        if (!shareButton) {
+            console.error('Share button not found');
+            return;
+        }
+        this.copyToClipboard(this.shareUrl, shareButton, 'Share', 'Link copied!');
+    },
+
     copyToClipboard: async function (text, button, originalText, copiedText) {
+        if (!button || !text) {
+            console.error('Missing required parameters for copyToClipboard');
+            return;
+        }
+
         try {
             // Try the modern Clipboard API first
             if (navigator.clipboard && window.isSecureContext) {
