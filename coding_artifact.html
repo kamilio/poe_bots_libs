@@ -7,12 +7,14 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- {config:jsjsonscript} --><script type="application/json" id="config-json-data">{"shouldShowUpload": true, "description": "Hello", "shareUrl": "https://poe.com", "shouldAutoSubmitUpload": true}</script><!-- {/} -->
+    <!-- {config:jsjsonscript} --><script type="application/json" id="config-json-data">{"shouldShowUpload": true, "description": "Hello", "shareUrl": "https://poe.com", "shouldAutoSubmitUpload": true, "shouldShowComments": true}</script><!-- {/} -->
     <!-- {files:jsjsonscript} --><script type="application/json" id="files-json-data">{"example.js": "console.log('Hello World!');", "style.css": "body { background: #fff; }", "index.html": "<html><body>Hello</body></html>"}</script><!-- {/} -->
-    <!-- {diff:jsjsonscript} --><script type="application/json" id="diff-json-data">"diff --git a/index.html b/index.html\nnew file mode 100644\nindex 0000000..6c70bcf\n--- /dev/null\n+++ b/index.html\n@@ -0,0 +1 @@\n+<html>Hello</html>\n\ndiff --git a/style.css b/style.css\nnew file mode 100644\nindex 0000000..d364947\n--- /dev/null\n+++ b/style.css\n@@ -0,0 +1 @@\n+body { color: red; }\n\ndiff --git a/script.js b/script.js\nnew file mode 100644\nindex 0000000..a420803\n--- /dev/null\n+++ b/script.js\n@@ -0,0 +1 @@\n+console.log('Hello, world!');"</script><!-- {/} -->
+    <!-- {diff:jsjsonscript} --><script type="application/json" id="diff-json-data">"diff --git a/fibonacci.py b/banana_sequence.py\nrename from fibonacci.py\nrename to banana_sequence.py\n--- a/fibonacci.py\n+++ b/banana_sequence.py\n@@ -1,11 +1,11 @@\n-def fibonacci(n):\n+def count_banana_splits(n):\n     if n <= 0:\n         return 0\n     elif n == 1:\n         return 1\n     else:\n-        return fibonacci(n-1) + fibonacci(n-2)\n+        return count_banana_splits(n-1) + count_banana_splits(n-2)\n \n if __name__ == \"__main__\":\n     for i in range(10):\n-        print(f\"Fibonacci({i}) = {fibonacci(i)}\")\n+        print(f\"Banana splits sequence({i}) = {count_banana_splits(i)}\")\ndiff --git a/test_banana_sequence.py b/test_banana_sequence.py\nnew file mode 100644\n--- /dev/null\n+++ b/test_banana_sequence.py\n@@ -0,0 +1,17 @@\n+import pytest\n+from banana_sequence import count_banana_splits\n+\n+def test_banana_splits_zero():\n+    assert count_banana_splits(0) == 0\n+\n+def test_banana_splits_one():\n+    assert count_banana_splits(1) == 1\n+\n+def test_banana_splits_two():\n+    assert count_banana_splits(2) == 1\n+\n+def test_banana_splits_five():\n+    assert count_banana_splits(5) == 5\n+\n+def test_banana_splits_negative():\n+    assert count_banana_splits(-1) == 0\n"</script><!-- {/} -->
     
 </body>
 </html>
+
+
 <!--
      *    .    *  
   .    *    .    *
