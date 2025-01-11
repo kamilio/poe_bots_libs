@@ -2,15 +2,15 @@
 <html>
 <head>
     <title>{|config.botName|}</title>
-  <script type="module" crossorigin src="/__url_placeholder__/coding_artifact-d7f35d45.js"></script>
+  <script type="module" crossorigin src="/__url_placeholder__/coding_artifact-e4fbb5b6.js"></script>
   <link rel="modulepreload" crossorigin href="/__url_placeholder__/assets/react-57209f9c.js">
   <link rel="modulepreload" crossorigin href="/__url_placeholder__/assets/diff2html-520d79da.js">
   <link rel="modulepreload" crossorigin href="/__url_placeholder__/assets/hljs-b99628a4.js">
-  <link rel="stylesheet" href="/__url_placeholder__/coding_artifact-499c7f02.css">
+  <link rel="stylesheet" href="/__url_placeholder__/coding_artifact-8aba407a.css">
 </head>
 <body>
     <div id="root"></div>
-    <!-- {config:jsjsonscript} --><script type="application/json" id="config-json-data">{"shouldShowUpload": true, "description": "Hello", "shareUrl": "https://poe.com", "shouldAutoSubmitUpload": false, "shouldShowComments": true, "isInitialPage": true, "botName": "TestBot"}</script><!-- {/} -->
+    <!-- {config:jsjsonscript} --><script type="application/json" id="config-json-data">{"shouldShowUpload": true, "description": "", "shareUrl": "https://poe.com", "shouldAutoSubmitUpload": false, "shouldShowComments": true, "isInitialPage": true, "botName": "TestBot"}</script><!-- {/} -->
     <!-- {files:jsjsonscript} --><script type="application/json" id="files-json-data">{"example.js": "console.log('Hello World!');\nconsole.log('Hello World!');\nconsole.log('Hello World!');", "style.css": "body { background: #fff; }", "index.html": "<html><body>Hello</body></html>"}</script><!-- {/} -->
     <!-- {diff:jsjsonscript} --><script type="application/json" id="diff-json-data">"diff --git a/fibonacci.py b/banana_sequence.py\nrename from fibonacci.py\nrename to banana_sequence.py\n--- a/fibonacci.py\n+++ b/banana_sequence.py\n@@ -1,11 +1,11 @@\n-def fibonacci(n):\n+def count_banana_splits(n):\n     if n <= 0:\n         return 0\n     elif n == 1:\n         return 1\n     else:\n-        return fibonacci(n-1) + fibonacci(n-2)\n+        return count_banana_splits(n-1) + count_banana_splits(n-2)\n \n if __name__ == \"__main__\":\n     for i in range(10):\n-        print(f\"Fibonacci({i}) = {fibonacci(i)}\")\n+        print(f\"Banana splits sequence({i}) = {count_banana_splits(i)}\")\ndiff --git a/test_banana_sequence.py b/test_banana_sequence.py\nnew file mode 100644\n--- /dev/null\n+++ b/test_banana_sequence.py\n@@ -0,0 +1,17 @@\n+import pytest\n+from banana_sequence import count_banana_splits\n+\n+def test_banana_splits_zero():\n+    assert count_banana_splits(0) == 0\n+\n+def test_banana_splits_one():\n+    assert count_banana_splits(1) == 1\n+\n+def test_banana_splits_two():\n+    assert count_banana_splits(2) == 1\n+\n+def test_banana_splits_five():\n+    assert count_banana_splits(5) == 5\n+\n+def test_banana_splits_negative():\n+    assert count_banana_splits(-1) == 0\n"</script><!-- {/} -->
      <!-- {comments:jsjsonscript} --><script type="application/json" id="comments-json-data">{"banana_sequence.py~~~1":[{"id":1736520433506,"content":"Hello"}],"banana_sequence.py~~~7":[{"id":1736520444771,"content":"Hi"}],"example.js~~~2":[{"id":1736520433506,"content":"Comment"}]}</script><!-- {/} -->
