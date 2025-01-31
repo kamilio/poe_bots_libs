@@ -82,5 +82,9 @@ const messages = [
     {
         role: "user",
         content: "Great! Now let's move on to the task management features. How should we structure the task model?"
-    }
+    },
+    {
+        role: "bot",
+        content: "We'll create a task model with title, description, status, and deadline. Here's the basic schema:\n\nconst taskSchema = new mongoose.Schema({\n  title: { type: String, required: true },\n  description: { type: String, required: true },\n  status: { type: String, enum: ['pending', 'in_progress', 'completed'], default: 'pending' },\n  deadline: { type: Date, required: true },\n  createdAt: { type: Date, default: Date.now }\n});"
+    },
 ];
