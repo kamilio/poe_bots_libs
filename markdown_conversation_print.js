@@ -34,11 +34,6 @@ function initializeMarkdownConversationPrint({ showHeaders, autoPrint, enableEdi
                 wrappedContent.push(`
                     <div class="content-line table-wrapper">
                         ${rendered}
-                        ${enableEditing ? `
-                            <div class="line-actions">
-                                <button class="remove-btn" onclick="removeLine(${messageIndex}, ${i}, ${tableLines.length})">Remove Table</button>
-                            </div>
-                        ` : ''}
                     </div>
                 `);
 
@@ -48,29 +43,12 @@ function initializeMarkdownConversationPrint({ showHeaders, autoPrint, enableEdi
                 wrappedContent.push(`
                     <div class="content-line">
                         ${rendered}
-                        ${enableEditing ? `
-                            <div class="line-actions">
-                                <button class="remove-btn" onclick="removeLine(${messageIndex}, ${i})">Remove Line</button>
-                            </div>
-                        ` : ''}
                     </div>
                 `);
             }
         }
 
         return wrappedContent.join('');
-    }
-
-    function removeLine(messageIndex, lineIndex, lineCount = 1) {
-        const lines = messages[messageIndex].content.split('\n');
-        lines.splice(lineIndex, lineCount);
-        messages[messageIndex].content = lines.join('\n');
-        renderMessages();
-    }
-
-    function removeMessage(messageIndex) {
-        messages.splice(messageIndex, 1);
-        renderMessages();
     }
 
     function renderMessages() {
@@ -84,17 +62,10 @@ function initializeMarkdownConversationPrint({ showHeaders, autoPrint, enableEdi
                             <div>${msg.name}</div>
                         `}
                     </div>
-                    ${enableEditing ? `
-                        <div class="message-actions">
-                            <button class="remove-btn" onclick="removeMessage(${index})">Remove Message</button>
-                        </div>
-                    ` : ''}
                 </div>
                 <div class="message-content">${wrapLinesWithActions(msg.content, index)}</div>
             </div>
         `).join('');
-
-        document.body.classList.toggle('editing-enabled', enableEditing);
     }
 
     function createImageToggle() {
